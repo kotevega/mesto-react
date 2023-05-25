@@ -4,7 +4,6 @@ import Main from "./Main.js";
 import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
-import "../index.css";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -39,6 +38,7 @@ function App() {
           title="Редактировать профиль"
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          buttonText={"Сохранить"}
         >
           <label className="popup__fildset">
             <input
@@ -66,9 +66,6 @@ function App() {
             />
             <span className="popup__input-error popup__input-error_type_about"></span>
           </label>
-          <button type="submit" className="popup__submit-button">
-            Сохранить
-          </button>
         </PopupWithForm>
 
         <PopupWithForm
@@ -76,6 +73,7 @@ function App() {
           title="Новое место"
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          buttonText={"Создать"}
         >
           <label className="popup__fildset">
             <input
@@ -101,9 +99,6 @@ function App() {
             />
             <span className="popup__input-error popup__input-error_type_imageLink"></span>
           </label>
-          <button type="submit" className="popup__submit-button">
-            Создать
-          </button>
         </PopupWithForm>
 
         <PopupWithForm
@@ -111,6 +106,7 @@ function App() {
           title="Обновить аватар"
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          buttonText={"Сохранить"}
         >
           <label className="popup__fildset">
             <input
@@ -122,9 +118,6 @@ function App() {
             />
             <span className="popup__input-error popup__input-error_type_avatar"></span>
           </label>
-          <button type="submit" className="popup__submit-button">
-            Сохранить
-          </button>
         </PopupWithForm>
 
         <PopupWithForm name="accept" title="Вы уверены?">

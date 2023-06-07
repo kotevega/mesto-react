@@ -1,37 +1,9 @@
 import React from "react";
-import api from "../utils/api.js";
 import Card from "./Card.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getUserInfoFromApi()
-      .then((dataUser) => {
-        setUserName(dataUser.name);
-        setUserDescription(dataUser.about);
-        setUserAvatar(dataUser.avatar);
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-
-    api
-      .getInitialCardsApi()
-      .then((dataCards) => {
-        setCards(
-          dataCards.map((data) => ({
-            likes: data.likes,
-            link: data.link,
-            name: data.name,
-            cardId: data._id,
-          }))
-        );
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }, []);
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCardLike, onCardDelete }) {
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="main">
@@ -43,7 +15,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
           onClick={onEditAvatar}
         >
           <img
-            src={userAvatar}
+            src={currentUser.avatar}
             alt="фото пользователя"
             className="profile__avatar"
           />
@@ -52,7 +24,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
           <div className="profile__user">
             <div className="profile__user-edit">
               <h1 id="profile-name" className="profile__name">
-                {userName}
+                {currentUser.name}
               </h1>
               <button
                 type="button"
@@ -62,7 +34,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
               ></button>
             </div>
             <p id="profile-occupation" className="profile__occupation">
-              {userDescription}
+              {currentUser.about}
             </p>
           </div>
           <button
@@ -76,7 +48,13 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       <section className="elements" aria-label="Фотографии пользователя">
         <ul className="element">
           {cards.map((card) => (
-            <Card key={card.cardId} card={card} onCardClick={onCardClick} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
           ))}
         </ul>
       </section>

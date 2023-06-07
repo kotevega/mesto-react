@@ -18,11 +18,11 @@ export class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  postNewCardApi(name, link) {
+  postNewCardApi(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
-      body: JSON.stringify({ name, link }),
+      body: JSON.stringify({ name: data.name, link: data.link }),
     }).then((res) => this._checkResponse(res));
   }
 
@@ -61,18 +61,18 @@ export class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  putCardLikeToApi(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: this._headers,
-    }).then((res) => this._checkResponse(res));
-  }
-
-  deleteCardLikeFromApi(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then((res) => this._checkResponse(res));
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: "PUT",
+        headers: this._headers,
+      }).then((res) => this._checkResponse(res));
+    } else {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: "DELETE",
+        headers: this._headers,
+      }).then((res) => this._checkResponse(res));
+    }
   }
 }
 
@@ -84,4 +84,4 @@ const api = new Api({
   },
 });
 
-export default api
+export default api;

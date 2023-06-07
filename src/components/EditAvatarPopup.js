@@ -2,7 +2,7 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
   const currentUser = React.useContext(CurrentUserContext);
   const avatarRef = React.useRef();
 
@@ -24,7 +24,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText={"Сохранить"}
+      buttonText={isLoading ? "Сохранение..." : "Сохранить"}
     >
       <label className="popup__fildset">
         <input

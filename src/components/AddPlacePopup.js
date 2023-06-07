@@ -2,7 +2,7 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
   const [namePlace, setNamePlace] = React.useState("");
   const [linkPlace, setLinkPlace] = React.useState("");
 
@@ -28,7 +28,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText={"Создать"}
+      buttonText={isLoading ? "Создание..." : "Создать"}
     >
       <label className="popup__fildset">
         <input
